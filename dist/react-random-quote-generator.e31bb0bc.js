@@ -33870,7 +33870,6 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const API_URL = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
-const url = `https://quote-garden.herokuapp.com/api/v2/quotes?page=1&limit=10`;
 
 function RandomQuotes() {
   const [random, setRandom] = (0, _react.useState)({});
@@ -33881,7 +33880,7 @@ function RandomQuotes() {
       console.log(res);
       const data = await res.json();
       setRandom(data.quote);
-      console.log(data);
+      console.log(data.quote);
     } catch (e) {
       console.error(e);
     }
@@ -33890,52 +33889,71 @@ function RandomQuotes() {
   (0, _react.useEffect)(() => {
     getQoutes();
   }, []);
-  const [quotesByAuthor, setQuotesByAuthor] = (0, _react.useState)({});
-  console.log(quotesByAuthor);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Random quotes generator"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "randomBtn-wrapper"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "randomBtn",
+    onClick: () => getQoutes()
+  }, "Random")), /*#__PURE__*/_react.default.createElement("p", null, `"${random.quoteText}"`), /*#__PURE__*/_react.default.createElement("div", {
+    className: "authorBtn"
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: `/authors/${random.quoteAuthor}`,
+    random: random
+  }, /*#__PURE__*/_react.default.createElement("h4", null, random.quoteAuthor, " \u2192"), /*#__PURE__*/_react.default.createElement("small", null, random.quoteGenre))));
+}
 
-  const getAuthorQuotes = async () => {
+var _default = RandomQuotes;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"components/QuotesDetails.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function Quotes() {
+  const [authors, setAuthors] = (0, _react.useState)([]);
+  const url = 'https://quote-garden.herokuapp.com/api/v2/authors/';
+  const author = "?page=1&limit=10";
+  const {
+    authorName
+  } = (0, _reactRouterDom.useParams)();
+
+  const getDetails = async () => {
     try {
-      const res = await fetch(url);
+      const res = await fetch(url + authorName + author);
       const data = await res.json();
-      setQuotesByAuthor(data.quotes);
-      console.log(data);
+      setAuthors(data.quotes);
+      console.log(data.quotes);
     } catch (e) {
       console.error(e);
     }
   };
 
   (0, _react.useEffect)(() => {
-    getAuthorQuotes();
+    getDetails();
   }, []);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
-    className: "randomBtn-wrapper"
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, authors.quoteAuthor), /*#__PURE__*/_react.default.createElement("nav", null, authors.map(author => /*#__PURE__*/_react.default.createElement("ul", {
+    key: author._id
+  }, /*#__PURE__*/_react.default.createElement("li", null, `"${author.quoteText}"`)))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
   }, /*#__PURE__*/_react.default.createElement("button", {
-    className: "randomBtn",
-    onClick: () => getQoutes()
-  }, "Random")), /*#__PURE__*/_react.default.createElement("p", null, random.quoteText), /*#__PURE__*/_react.default.createElement("ul", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: `/authors/${random.quoteAuthor}`
-  }, /*#__PURE__*/_react.default.createElement("h4", {
-    className: "authorBtn"
-  }, random.quoteAuthor))));
+    className: "go-back"
+  }, "Go back!")));
 }
 
-var _default = RandomQuotes;
+var _default = Quotes;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"components/QuotesDetails.js":[function(require,module,exports) {
-// import React from "react";
-// import { Link } from "react-router-dom"
-// function Quotes({ random }) {
-//     return (
-//         <li>
-//             <Link to={`/authors/${random.quoteAuthor}`}>
-//                 <button className="authorBtn">{random.quoteAuthor}</button>
-//                 {/* <p>{random.quoteText}</p> */}
-//             </Link>
-//         </li>
-//     )
-// }
-// export default Quotes
-},{}],"components/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33954,11 +33972,11 @@ var _reactRouterDom = require("react-router-dom");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Random quotes generator"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/authors/:authorName"
-  }, /*#__PURE__*/_react.default.createElement(_RandomQuotes.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-    path: "/authors/:authorName"
-  }, /*#__PURE__*/_react.default.createElement(_QuotesDetails.default, null)))));
+  }, /*#__PURE__*/_react.default.createElement(_QuotesDetails.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: "/"
+  }, /*#__PURE__*/_react.default.createElement(_RandomQuotes.default, null)))));
 }
 },{"react":"node_modules/react/index.js","./RandomQuotes":"components/RandomQuotes.js","./QuotesDetails":"components/QuotesDetails.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"index.js":[function(require,module,exports) {
 "use strict";
@@ -34000,7 +34018,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55423" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57023" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

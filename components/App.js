@@ -11,14 +11,13 @@ import {
 export default function App() {
     return (
         <div>
-            <h1>Random quotes generator</h1>
             <Router>
                 <Switch>
-                    <Route path="/authors/:authorName">
-                        <RandomQuotes />
-                    </Route>
-                    <Route path="/authors/:authorName">
+                <Route path="/authors/:authorName">
                         <Quotes />
+                    </Route>
+                    <Route path="/">
+                        <RandomQuotes />
                     </Route>
                 </Switch>
             </Router>
