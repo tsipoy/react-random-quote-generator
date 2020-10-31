@@ -33894,12 +33894,35 @@ function RandomQuotes() {
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "randomBtn",
     onClick: () => getQoutes()
-  }, "Random")), /*#__PURE__*/_react.default.createElement("p", null, `"${random.quoteText}"`), /*#__PURE__*/_react.default.createElement("div", {
+  }, "Random", /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    height: "24",
+    viewBox: "0 0 24 24",
+    width: "24"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), /*#__PURE__*/_react.default.createElement("path", {
+    d: "M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"
+  }))))), /*#__PURE__*/_react.default.createElement("p", null, `"${random.quoteText}"`), /*#__PURE__*/_react.default.createElement("div", {
     className: "authorBtn"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: `/authors/${random.quoteAuthor}`,
     random: random
-  }, /*#__PURE__*/_react.default.createElement("h4", null, random.quoteAuthor, " \u2192"), /*#__PURE__*/_react.default.createElement("small", null, random.quoteGenre))));
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "divAuthor"
+  }, /*#__PURE__*/_react.default.createElement("h4", null, random.quoteAuthor), /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement("svg", {
+    className: "svg",
+    xmlns: "http://www.w3.org/2000/svg",
+    height: "24",
+    viewBox: "0 0 24 24",
+    width: "24"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), /*#__PURE__*/_react.default.createElement("path", {
+    d: "M16.01 11H4v2h12.01v3L20 12l-3.99-4z"
+  })))), /*#__PURE__*/_react.default.createElement("small", null, random.quoteGenre))));
 }
 
 var _default = RandomQuotes;

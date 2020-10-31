@@ -27,6 +27,9 @@ button {
 }
 
 .randomBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     position: absolute;
     right: 0;
     top: -20px;
@@ -62,4 +65,15 @@ a {
 
 small {
     color: #828282;
+}
+
+.svg {
+    fill: white;
+}
+
+.divAuthor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
